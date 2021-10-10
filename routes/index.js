@@ -22,6 +22,7 @@ router.get('/:username/:password/log-in', function(req,res,next){
   })
 })
 router.post('/sign-up', function(req,res,next){
+  console.log(req.body)
   const user = new User({
     username: req.body.username,
     firstname: req.body.firstname,
