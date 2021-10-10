@@ -7,10 +7,10 @@ const bcrypt = require('bcryptjs')
 router.get('/', function(req, res, next) {
   res.json('Hi')
 });
-router.post('/log-in', function(req,res,next){
-  console.log(req.body)
-  User.find({username: req.body.username}, function(err, doc){
-    bcrypt.compare(req.body.password, doc[0].password, (err, rest) => {
+router.get('/:username/:password/log-in', function(req,res,next){
+  console.log(req.params)
+  User.find({username: req.params.username}, function(err, doc){
+    bcrypt.compare(req.params.password, doc[0].password, (err, rest) => {
       if(rest){
         res.json(doc[0])
       } else {
