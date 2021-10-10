@@ -5,9 +5,10 @@ const bcrypt = require('bcryptjs')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.json('Hi')
 });
 router.post('/log-in', function(req,res,next){
+  console.log(req.body)
   User.find({username: req.body.username}, function(err, doc){
     bcrypt.compare(req.body.password, doc[0].password, (err, rest) => {
       if(rest){
@@ -19,6 +20,7 @@ router.post('/log-in', function(req,res,next){
   })
 })
 router.get('/test', function(req,res){
+  res.json('Hello')
   /*User.find({'username': 'hello'}, function(err, doc){
     const epic = [...doc[0].friends, 'hello2']
     doc[0].update({'friends': epic}, function(err){
