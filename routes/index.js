@@ -23,19 +23,24 @@ router.get('/:username/:password/log-in', function(req,res,next){
 })
 router.post('/sign-up', function(req,res,next){
   console.log(req.body)
-  const user = new User({
-    username: req.body.username,
-    firstname: req.body.firstname,
-    email: req.body.email,
-    lastname: req.body.lastname,
-    password: req.body.password,
-  }).save(function(err){
+  bcrypt.hash(req.body.password, 10, (err, hashed) => {
     if(err){
-      console.log(err)
-      res.json('Bad Req')
-      return next(err)
+      res.json('failed')
     }
-    res.json('Good')
+    const user = new User({
+      username: req.body.username,
+      firstname: req.body.firstname,
+      email: req.body.email,
+      lastname: req.body.lastname,
+      password: hashed,
+    }).save(function(err){
+      if(err){
+        console.log(err)
+        res.json('Bad Req')
+        return next(err)
+      }
+      res.json('Good')
+    })
   })
 })
 router.get('/test', function(req,res){
