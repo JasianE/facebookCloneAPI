@@ -8,9 +8,10 @@ router.get('/', function(req, res, next) {
   res.json('Hi')
 });
 router.get('/:username/:password/log-in', function(req,res,next){
-  console.log(req.params)
   User.find({username: req.params.username}, function(err, doc){
-    console.log(doc)
+    if(err){
+      res.json('No user')
+    }
     bcrypt.compare(req.params.password, doc[0].password, (err, rest) => {
       if(rest){
         res.json(doc[0])
@@ -18,6 +19,22 @@ router.get('/:username/:password/log-in', function(req,res,next){
         res.json('bad')
       }
     })
+  })
+})
+router.post('/sign-up', function(req,res,next){
+  const user = new User({
+    username: req.body.username,
+    firstname: req.body.firstname,
+    email: req.body.email,
+    lastname: req.body.lastname,
+    password: req.body.password,
+  }).save(function(err){
+    if(err){
+      console.log(err)
+      res.json('Bad Req')
+      return next(err)
+    }
+    res.json('Good')
   })
 })
 router.get('/test', function(req,res){
