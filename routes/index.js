@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.json('Hi')
+  res.json('Hi3')
 });
 router.get('/:username/:password/log-in', function(req,res,next){
   User.find({username: req.params.username}, function(err, doc){
