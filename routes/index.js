@@ -8,6 +8,7 @@ router.get('/', function(req, res, next) {
   res.json('Hi3')
 });
 router.get('/:username/:password/log-in', function(req,res,next){
+  /*
   User.find({username: req.params.username}, function(err, doc){
     if(err){
       res.json('No user')
@@ -20,6 +21,8 @@ router.get('/:username/:password/log-in', function(req,res,next){
       }
     })
   })
+  */
+ console.log(req.params)
 })
 router.post('/sign-up', function(req,res,next){
   console.log(req.body)
