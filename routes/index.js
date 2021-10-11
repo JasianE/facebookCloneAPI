@@ -8,11 +8,13 @@ router.get('/', function(req, res, next) {
   res.json('Hi3')
 });
 router.get('/:username/:password/log-in', function(req,res,next){
-  /*
+
   User.find({username: req.params.username}, function(err, doc){
+    console.log(doc)
     if(err){
       res.json('No user')
     }
+  })/*
     bcrypt.compare(req.params.password, doc[0].password, (err, rest) => {
       if(rest){
         res.json(doc[0])
