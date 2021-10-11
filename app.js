@@ -16,6 +16,7 @@ var app = express();
 
 mongoose.connect(process.env.host, {useNewUrlParser: true, useUnifiedTopology: true})
 const db = mongoose.connection
+console.log(db)
 const port = process.env.PORT || 3000
 db.on('error', console.error.bind(console, 'Mongodb error'))
 
