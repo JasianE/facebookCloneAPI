@@ -11,7 +11,7 @@ router.get('/:username/:password/log-in', function(req,res,next){
   console.log(req.params)
   User.find({username: req.params.username}, function(err, doc){
     console.log(doc)
-    if(err){
+    if(err || doc.length === 0){
       res.json('No user')
     }
     bcrypt.compare(req.params.password, doc[0].password, (err, rest) => {
