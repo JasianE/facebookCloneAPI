@@ -14,7 +14,6 @@ router.get('/:username/:password/log-in', function(req,res,next){
     if(err){
       res.json('No user')
     }
-  })/*
     bcrypt.compare(req.params.password, doc[0].password, (err, rest) => {
       if(rest){
         res.json(doc[0])
@@ -23,8 +22,6 @@ router.get('/:username/:password/log-in', function(req,res,next){
       }
     })
   })
-  */
- console.log(req.params)
 })
 router.post('/sign-up', function(req,res,next){
   console.log(req.body)
