@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
   res.json('Hi3')
 });
 router.get('/:username/:password/log-in', function(req,res,next){
-
+  console.log(req.params)
   User.find({username: req.params.username}, function(err, doc){
     console.log(doc)
     if(err){
@@ -18,7 +18,7 @@ router.get('/:username/:password/log-in', function(req,res,next){
       if(rest){
         res.json(doc[0])
       } else {
-        res.json('bad')
+        res.json('Wrong Information')
       }
     })
   })
