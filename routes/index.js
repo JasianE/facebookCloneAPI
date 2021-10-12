@@ -14,14 +14,15 @@ router.get('/:username/:password/log-in', function(req,res,next){
     if(err || doc.length === 0){
       console.log('Here!!')
       res.json('No user')
-    }
-    bcrypt.compare(req.params.password, doc[0].password, (err, rest) => {
-      if(rest){
-        res.json(doc[0])
-      } else {
-        res.json('Wrong Information')
+    } else {
+        bcrypt.compare(req.params.password, doc[0].password, (err, rest) => {
+          if(rest){
+            res.json(doc[0])
+          } else {
+            res.json('Wrong Information')
+          }
+        })
       }
-    })
   })
 })
 router.post('/sign-up', function(req,res,next){
