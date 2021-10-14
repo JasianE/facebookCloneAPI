@@ -30,28 +30,30 @@ router.post('/sign-up', function(req,res,next){
   User.find({username: req.body.username}, function(err, doc){
     if(doc.length > 0){
       return('Username Is Used')
+    } else {
+        bcrypt.hash(req.body.password, 10, (err, hashed) => {
+          if(err){
+            res.json('failed')
+          }
+          const user = new User({
+            username: req.body.username,
+            firstname: req.body.firstname,
+            email: req.body.email,
+            lastname: req.body.lastname,
+            password: hashed,
+          }).save(function(err){
+            if(err){
+              console.log(err)
+              res.json('Bad Req')
+              return next(err)
+            }
+            res.json('Good')
+          })
+        })
     }
-    bcrypt.hash(req.body.password, 10, (err, hashed) => {
-      if(err){
-        res.json('failed')
-      }
-      const user = new User({
-        username: req.body.username,
-        firstname: req.body.firstname,
-        email: req.body.email,
-        lastname: req.body.lastname,
-        password: hashed,
-      }).save(function(err){
-        if(err){
-          console.log(err)
-          res.json('Bad Req')
-          return next(err)
-        }
-        res.json('Good')
-      })
-    })
   })
 })
+router.post('/send', friendController.send)
 router.get('/test', function(req,res){
   res.json('Hello')
   /*User.find({'username': 'hello'}, function(err, doc){
