@@ -3,6 +3,7 @@ var router = express.Router();
 const User = require('../models/User')
 const bcrypt = require('bcryptjs')
 const friendController = require('../controllers/friendController')
+const userController = require('../controllers/userController')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -55,6 +56,7 @@ router.post('/sign-up', function(req,res,next){
   })
 })
 router.post('/send', friendController.send)
+router.get('/:user/find', userController.find)
 router.get('/test', function(req,res){
   res.json('Hello')
   /*User.find({'username': 'hello'}, function(err, doc){
