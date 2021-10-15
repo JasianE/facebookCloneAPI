@@ -6,6 +6,10 @@ const User = require('../models/User')
 //Once accepted use friendController.add
 exports.find = function(req,res,next){
     User.find({username: req.params.user}, function(err, user){
-        console.log(user, req.param.user)
+        if(user.length === 0){
+            res.json('No User Found')
+        } else{
+            res.json(user[0])
+        }
     })
 }
