@@ -14,15 +14,14 @@ exports.send = function(req,res,next){
     })
 }
 exports.check = function(req,res,next){
-    let friend; 
     User.find({username: req.params.friend}).exec(function(err, use){
-        console.log(use)
-        friend = use[0].requests
+        User.find({username: req.params.user}).exec(function(err, bruh){
+            console.log(use,bruh)
+            if(use.requests.indexOf(bruh._id) !== -1){
+                res.json('Bad')
+            } else{
+                res.json('Good')
+            }
+        })
     })
-    let user; 
-    User.find({username: req.params.user}).exec(function(err, use){
-        console.log(use)
-        user = use[0]._id
-    })
-    console.log(friend, user)
 }
