@@ -17,5 +17,5 @@ exports.check = function(req,res,next){
     /*User.find({username: req.body.friend.username}).exec(function(err, user){
         
     })*/
-    console.log('hello', req.params.user)
+    console.log(req.params)
 }
