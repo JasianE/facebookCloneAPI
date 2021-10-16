@@ -16,5 +16,5 @@ exports.send = function(req,res,next){
 exports.check = function(req,res,next){
     const requests = req.params.friend.requests
     const id = req.params.user._id
-    console.log(req.params.friend)
+    console.log(requests, id)
 }
