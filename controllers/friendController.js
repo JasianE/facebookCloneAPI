@@ -14,11 +14,11 @@ exports.send = function(req,res,next){
     })
 }
 exports.check = function(req,res,next){
-    const friend = User.find({username: req.body.friend}).exec(function(err, user){
-        return user[0].requests
+    const friend = User.find({username: req.params.friend}).exec(function(err, use){
+        return use[0]._id
     })
-    const user = User.find({username: req.body.user}).exec(function(err, user){
-        return user[0]._id
+    const user = User.find({username: req.params.user}).exec(function(err, use){
+        return use[0]._id
     })
-    console.log(friend, user)
+    console.log(friend,user)
 }
