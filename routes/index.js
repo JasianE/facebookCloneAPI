@@ -10,9 +10,7 @@ router.get('/', function(req, res, next) {
   res.json('Hi3')
 });
 router.get('/:username/:password/log-in', function(req,res,next){
-  console.log(req.params)
   User.find({username: req.params.username}, function(err, doc){
-    console.log(doc)
     if(err || doc.length === 0){
       console.log('Here!!')
       res.json('No user')
@@ -28,7 +26,6 @@ router.get('/:username/:password/log-in', function(req,res,next){
   })
 })
 router.post('/sign-up', function(req,res,next){
-  console.log(req.body)
   User.find({username: req.body.username}, function(err, doc){
     if(doc.length > 0){
       return('Username Is Used')
