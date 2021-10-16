@@ -16,7 +16,7 @@ exports.send = function(req,res,next){
 exports.check = function(req,res,next){
     User.find({username: req.params.friend}).exec(function(err, use){
         User.find({username: req.params.user}).exec(function(err, bruh){
-            console.log(use[0],bruh[0])
+            console.log(bruh[0]._id, use[0].requests, use[0].requests.indexOf(bruh[0]._id))
             if(use[0].requests.indexOf(bruh[0]._id) !== -1){
                 res.json('Bad')
             } else{
