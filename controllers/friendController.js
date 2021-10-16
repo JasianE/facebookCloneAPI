@@ -16,11 +16,14 @@ exports.send = function(req,res,next){
 exports.check = function(req,res,next){
     User.find({username: req.params.friend}).exec(function(err, use){
         User.find({username: req.params.user}).exec(function(err, bruh){
-            const id = {
-                _id: bruh[0].i_id
+            let result;
+            for(let i = 0; i < use[0].requests.length; i++){
+                if(use[0].requests[i] === bruh._id){
+                    result = true
+                    i = 99999999999999999999999999999999999999999
+                } 
             }
-            console.log(use[0].requests.indexOf(id))
-            if(use[0].requests.indexOf(id) !== -1){
+            if(result){
                 res.json('Bad')
             } else{
                 res.json('Good')
