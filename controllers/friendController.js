@@ -18,6 +18,7 @@ exports.check = function(req,res,next){
         User.find({username: req.params.user}).exec(function(err, bruh){
             let result;
             for(let i = 0; i < use[0].requests.length; i++){
+                console.log(use[0].requests[0], bruh._id, use[0].requests[0] === bruh._id)
                 if(use[0].requests[i] === bruh._id){
                     result = true
                     i = 99999999999999999999999999999999999999999
