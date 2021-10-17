@@ -14,6 +14,7 @@ exports.find = function(req,res,next){
     })
 }
 exports.stupid = function(req,res,next){
+    console.log(req.params)
     User.find({"_id": req.params.id}, function(err, user){
         res.json(user[0])
     })

@@ -55,7 +55,7 @@ router.post('/sign-up', function(req,res,next){
 router.post('/send', friendController.send)
 router.get('/:user/find', userController.find)
 router.get('/:user/:friend/check', friendController.check)
-router.get('/id/stupid', userController.stupid)
+router.get('/:id/stupid', userController.stupid)
 router.get('/test', function(req,res){
   res.json('Hello')
   /*User.find({'username': 'hello'}, function(err, doc){
