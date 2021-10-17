@@ -17,9 +17,9 @@ exports.check = function(req,res,next){
     User.find({username: req.params.friend}).exec(function(err, use){
         User.find({username: req.params.user}).exec(function(err, bruh){
             let result;
-            console.log(use[0].requests[0]._id === bruh[0]._id, bruh[0]._id)
+            console.log(use[0].requests[0]._id === bruh[0]._id, bruh[0])
             for(let i = 0; i < use[0].requests.length; i++){
-                if(use[0].requests[i]._id === bruh[0]._id){
+                if(use[0].requests[i]._id === bruh[0]){
                     result = true
                     i = 99999999999999999999999999999999999999999
                 } 
