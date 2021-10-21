@@ -38,17 +38,23 @@ exports.check = function(req,res,next){
     })
 }
 exports.add = function(req,res,next){
-    User.find({username: req.body.user}).exec(function(err, user){
-        const newFriends = [...user[0].friends, req.body.friend]
-        const newRequests = user[0].requests.filter(item => item._id.toString() !== req.body.friend._id.toString())
-        user[0].update({'friends': newFriends, 'requests': newRequests}, function(err){
-            if(err){
-                console.log(err)
-                res.json('Failed')
-            } else {
-
-                res.json('Success')
-            }
+    User.find({username: req.body.user.username}).exec(function(err, user){
+        User.find({username: req.body.friend.username}).exec(function(err,user2){
+            const newFriends1 = [...user[0].friends, req.body.friend]
+            const newFriends2 = [...user2[0].friends, req.body.user]
+            const newRequests = user[0].requests.filter(item => item._id.toString() !== req.body.friend._id.toString())
+            user[0].update({'friends': newFriends, 'requests': newRequests}, function(err){
+                if(err){
+                    res.json(err)
+                }
+            })
+            user2[0].update({'friends': newFriends2}, function(err){
+                if(err){
+                    res.json(err)
+                } else {
+                    res.json('Success!')
+                }
+            })
         })
     })
 }
