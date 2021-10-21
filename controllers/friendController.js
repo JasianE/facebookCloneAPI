@@ -1,4 +1,12 @@
 const User = require('../models/User')
+/*
+TODO
+On friendside page once request is clicked it doesnt reset state until after
+Check doesnt check for if youre already friends
+You can send a request to a person even if they already sent a request to you
+    make the page display an accept request button
+
+*/
 
 exports.send = function(req,res,next){
     User.find({username: req.body.friend.username}).exec(function(err, user){
@@ -18,9 +26,9 @@ exports.check = function(req,res,next){
         User.find({username: req.params.user}).exec(function(err, bruh){
             let result;
             if(use[0].requests.length !== 0 || use[0].friends.length !== 0){
-                console.log(use[0].friends[0])
+                console.log(bruh[0]._id, bruh[0])
                 for(let i = 0; i < use[0].requests.length; i++){
-                    if(use[0].requests[i]._id.equals(bruh[0]._id) || use[0].friends[i]._id.equals(bruh[0]._id)){
+                    if(use[0].requests[i]._id.equals(bruh[0]._id) || use[0].friends[i].equals(bruh[0]._id)){
                         result = true
                         i = 99999999999999999999999999999999999999999
                     } 
