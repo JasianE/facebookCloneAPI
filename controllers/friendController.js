@@ -17,19 +17,23 @@ exports.check = function(req,res,next){
     User.find({username: req.params.friend}).exec(function(err, use){
         User.find({username: req.params.user}).exec(function(err, bruh){
             let result;
-            for(let i = 0; i < use[0].requests.length; i++){
-                console.log(use[0].friends)
-                console.log(use[0].friends[i])
-                if(use[0].requests[i]._id.equals(bruh[0]._id) || use[0].friends[i]._id.equals(bruh[0]._id)){
-                    result = true
-                    i = 99999999999999999999999999999999999999999
-                } 
-            }
-            if(result){
-                res.json('Bad')
-            } else{
+            if(use[0].requests.length !== 0 && use[0].friends.length !== 0){
+                console.log(use[0].friends[0])
+                for(let i = 0; i < use[0].requests.length; i++){
+                    if(use[0].requests[i]._id.equals(bruh[0]._id) || use[0].friends[i]._id.equals(bruh[0]._id)){
+                        result = true
+                        i = 99999999999999999999999999999999999999999
+                    } 
+                }
+                if(result){
+                    res.json('Bad')
+                } else{
+                    res.json('Good')
+                }
+            } else {
                 res.json('Good')
             }
+            
         })
     })
 }
