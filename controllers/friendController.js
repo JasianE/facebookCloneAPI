@@ -43,7 +43,7 @@ exports.add = function(req,res,next){
             const newFriends1 = [...user[0].friends, req.body.friend]
             const newFriends2 = [...user2[0].friends, req.body.user]
             const newRequests = user[0].requests.filter(item => item._id.toString() !== req.body.friend._id.toString())
-            user[0].update({'friends': newFriends, 'requests': newRequests}, function(err){
+            user[0].update({'friends': newFriends1, 'requests': newRequests}, function(err){
                 if(err){
                     res.json(err)
                 }
