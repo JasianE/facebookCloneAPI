@@ -40,8 +40,8 @@ exports.check = function(req,res,next){
 exports.add = function(req,res,next){
     User.find({username: req.body.user.username}).exec(function(err, user){
         User.find({username: req.body.friend.username}).exec(function(err,user2){
-            const newFriends1 = [...user[0].friends, req.body.friend]
-            const newFriends2 = [...user2[0].friends, req.body.user]
+            const newFriends1 = [...user[0].friends, req.body.friend._id]
+            const newFriends2 = [...user2[0].friends, req.body.user._id]
             const newRequests = user[0].requests.filter(item => item._id.toString() !== req.body.friend._id.toString())
             user[0].update({'friends': newFriends1, 'requests': newRequests}, function(err){
                 if(err){
