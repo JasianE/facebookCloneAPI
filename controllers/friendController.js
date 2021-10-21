@@ -17,6 +17,7 @@ exports.check = function(req,res,next){
     User.find({username: req.params.friend}).exec(function(err, use){
         User.find({username: req.params.user}).exec(function(err, bruh){
             let result;
+            console.log(use[0].friends)
             for(let i = 0; i < use[0].requests.length; i++){
                 if(use[0].requests[i]._id.equals(bruh[0]._id)){
                     result = true
