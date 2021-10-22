@@ -27,6 +27,7 @@ exports.check = function(req,res,next){
             let result;
             if(use[0].requests.length !== 0 || use[0].friends.length !== 0){
                 for(let i = 0; i < use[0].requests.length; i++){
+                    console.log(use[0].friends[i] === bruh[0]._id.toString())
                     if(use[0].requests[i]._id.equals(bruh[0]._id) || use[0].friends[i] === bruh[0]._id.toString()){
                         result = true
                         i = 99999999999999999999999999999999999999999
