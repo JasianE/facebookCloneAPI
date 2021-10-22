@@ -27,8 +27,14 @@ exports.write = function(req,res,next){
     Ok it hink this is a good way to do ti
     */
    User.find({username: req.body.user.username}, function(err, user){
-       console.log(user)
-       console.log(req.body)
+       const newPosts = [...user[0].posts, req.body.post]
+       user[0].update({'posts': newPosts}, function(err){
+           if(err){
+               res.json(err)
+           } else{
+               res.json(':)')
+           }
+       })
    })
 
 }
