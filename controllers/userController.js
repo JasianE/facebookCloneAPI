@@ -19,3 +19,12 @@ exports.stupid = function(req,res,next){
         res.json(user[0])
     })
 }
+exports.write = function(req,res,next){
+    /* Stores it in users comments
+    Stores Text
+    When homepage is read scan through each friend of the users post
+    Sort chronilogiclaylasdsfal and yeah
+    Ok it hink this is a good way to do ti
+    */
+   
+}

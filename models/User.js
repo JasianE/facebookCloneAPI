@@ -8,6 +8,9 @@ const CommentSchema = new Schema({
 const RequestSchema = new Schema({
     user: {type: String, required: true}
 })
+const MessageSchema = new Schema({
+    post: {type: String, required: true}
+})
 const UserSchema = new Schema({
     username: {type: String, required: true},
     firstname: {type: String, required: true},
@@ -15,16 +18,19 @@ const UserSchema = new Schema({
     lastname: {type: String, required: true},
     friends: [],
     password: {type: String, required: true},
-    comments: {
-        type: [ CommentSchema ],
-        default: [{
-            message: 'Hello',
-            likes: 0
-        }]
-    },
     requests: {
         type: [ RequestSchema ],
         default: []
+    },
+    posts: {
+        default: [],
+        message: {
+            type: [ MessageSchema ]
+        }
+        comments: {
+            type: [ CommentSchema ],
+            default: []
+        },
     }
 })
 
