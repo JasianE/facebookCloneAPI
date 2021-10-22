@@ -8,8 +8,12 @@ const CommentSchema = new Schema({
 const RequestSchema = new Schema({
     user: {type: String, required: true}
 })
-const MessageSchema = new Schema({
-    post: {type: String, required: true}
+const PostSchema = new Schema({
+    post: {type: String, required: true},
+    comments: {
+        type: [ CommentSchema ],
+        default: []
+    }
 })
 const UserSchema = new Schema({
     username: {type: String, required: true},
@@ -23,14 +27,8 @@ const UserSchema = new Schema({
         default: []
     },
     posts: {
-        default: [],
-        message: {
-            type: [ MessageSchema ]
-        },
-        comments: {
-            type: [ CommentSchema ],
-            default: []
-        },
+        type: [ PostSchema ],
+        default: []
     }
 })
 
