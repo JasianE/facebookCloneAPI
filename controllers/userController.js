@@ -26,5 +26,9 @@ exports.write = function(req,res,next){
     Sort chronilogiclaylasdsfal and yeah
     Ok it hink this is a good way to do ti
     */
-   
+   User.find({username: req.body.user.username}, function(err, user){
+       console.log(user)
+       console.log(req.body)
+   })
+
 }
