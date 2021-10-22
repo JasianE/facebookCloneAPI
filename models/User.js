@@ -26,7 +26,7 @@ const UserSchema = new Schema({
         default: [],
         message: {
             type: [ MessageSchema ]
-        }
+        },
         comments: {
             type: [ CommentSchema ],
             default: []
