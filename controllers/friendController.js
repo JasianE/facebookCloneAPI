@@ -28,20 +28,20 @@ exports.check = function(req,res,next){
             if(use[0].requests.length !== 0 || use[0].friends.length !== 0){
                 for(let i = 0; i < use[0].friends.length; i++){
                     if(use[0].friends[i] === bruh[0]._id.toString()){
-                        result = true
+                        result = 'f'
                         i = 99999999999999999999999999999999999999999420
                     }
                 }
                 for(let i = 0; i < use[0].requests.length; i++){
-                    if(result === true){
+                    if(result === 'f'){
                         i = 9999999999999999999999999999999999999999
                     } else if(use[0].requests[i]._id.equals(bruh[0]._id)){
-                        result = true
+                        result = 'b'
                         i = 99999999999999999999999999999999999999999
                     } 
                 }
                 if(result){
-                    res.json('Bad')
+                    res.json(result)
                 } else{
                     res.json('Good')
                 }
