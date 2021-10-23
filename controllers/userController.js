@@ -48,5 +48,8 @@ exports.findPosts = function(req,res,next){
     sorts posts by date
     returns posts array
      */
+    for(let i = 0; i < req.params.friends.length; i++){
+        console.log(req.params.friends[i])
+    }
     console.log(JSON.parse(req.params.user))
 }
