@@ -55,8 +55,7 @@ exports.findPosts = function(req,res,next){
         if(i === friends.length - 1){
             User.find({'_id': friends[i]}, function(err, user){
                 posts = [...posts, ...user[0].posts]
-                console.log('hi')
-                res.json('i')
+                res.json(posts)
             })
         } else {
             User.find({'_id': friends[i]}, function(err, user){
