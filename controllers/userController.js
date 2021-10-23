@@ -26,7 +26,6 @@ exports.write = function(req,res,next){
     Sort chronilogiclaylasdsfal and yeah
     Ok it hink this is a good way to do ti
     */
-   console.log(req.params)
    User.find({username: req.body.user.username}, function(err, user){
        const post = {
            post: req.body.post
@@ -41,5 +40,13 @@ exports.write = function(req,res,next){
            }
        })
    })
-
+}
+exports.findPosts = function(req,res,next){
+    /*
+    Finds Friends and user stores them in array
+    maps through array, pushing each post into posts array
+    sorts posts by date
+    returns posts array
+     */
+    console.log(req.params)
 }
