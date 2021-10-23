@@ -63,5 +63,6 @@ exports.findPosts = function(req,res,next){
             })
         }
     }
+    console.log('hello')
     res.json('Fuck')
 }
