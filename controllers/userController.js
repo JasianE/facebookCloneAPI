@@ -52,6 +52,7 @@ exports.findPosts = function(req,res,next){
     let posts = []
     for(let i = 0; i < friends.length; i++){
         User.find({'_id': friends[i]}, function(err, user){
+            console.log(user[0].posts)
             posts = [...posts, ...user[0].posts]
         })
     }
