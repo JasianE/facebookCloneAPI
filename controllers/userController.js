@@ -28,6 +28,7 @@ exports.write = function(req,res,next){
     */
    User.find({username: req.body.user.username}, function(err, user){
        const post = {
+           sender: req.body.user.username,
            post: req.body.post
        }
        const newPosts = [...user[0].posts, post]

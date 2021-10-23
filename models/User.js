@@ -9,6 +9,7 @@ const RequestSchema = new Schema({
     user: {type: String, required: true}
 })
 const PostSchema = new Schema({
+    sender: {type: String, required: true},
     post: {type: String, required: true},
     date: {type: Date, default: Date.now},
     comments: {
