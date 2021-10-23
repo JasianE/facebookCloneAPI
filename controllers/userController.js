@@ -49,14 +49,18 @@ exports.findPosts = function(req,res,next){
     returns posts array
      */
     const friends = req.params.friends.split(',')
-    let posts = []
+    let posts = [JSON.parse(req.params.user)]
     for(let i = 0; i < friends.length; i++){
-        User.find({'_id': friends[i]}, function(err, user){
-            posts = [...posts, ...user[0].posts]
-            console.log(posts)
-        })
+        if(i === friends.length){
+            User.find({'_id': friends[i]}, function(err, user){
+                posts = [...posts, ...user[0].posts]
+                res.json(posts)
+            })
+        } else {
+            User.find({'_id': friends[i]}, function(err, user){
+                posts = [...posts, ...user[0].posts]
+                console.log(posts)
+            })
+        }
     }
-    console.log(posts)
-    console.log(friends)
-    console.log(JSON.parse(req.params.user))
 }
