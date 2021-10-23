@@ -10,7 +10,7 @@ const RequestSchema = new Schema({
 })
 const PostSchema = new Schema({
     post: {type: String, required: true},
-    date: new Date(),
+    date: {type: Date, default: Date.now},
     comments: {
         type: [ CommentSchema ],
         default: []
