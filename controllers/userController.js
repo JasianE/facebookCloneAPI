@@ -48,6 +48,6 @@ exports.findPosts = function(req,res,next){
     sorts posts by date
     returns posts array
      */
-    console.log(req.params.friend)
+    console.log(req.params.friends)
     console.log(JSON.parse(req.params.user))
 }
