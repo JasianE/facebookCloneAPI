@@ -57,7 +57,7 @@ router.get('/:user/find', userController.find)
 router.get('/:user/:friend/check', friendController.check)
 router.get('/:id/stupid', userController.stupid)
 router.post('/add', friendController.add)
-router.post('/:friends/:user/write', userController.write)
+router.post('/write', userController.write)
 router.get('/:friends/:user/findPosts', userController.findPosts)
 router.get('/test', function(req,res){
   res.json('Hello')
