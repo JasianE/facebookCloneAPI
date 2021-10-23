@@ -48,5 +48,5 @@ exports.findPosts = function(req,res,next){
     sorts posts by date
     returns posts array
      */
-    console.log(req.params.user.username)
+    console.log(req.params.user)
 }
