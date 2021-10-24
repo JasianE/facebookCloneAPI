@@ -10,7 +10,7 @@ const RequestSchema = new Schema({
 })
 const PostSchema = new Schema({
     sender: {type: String, required: true},
-    likes: {type: Number, default: 0},
+    likers: {type: Array},
     post: {type: String, required: true},
     date: {type: Date, default: Date.now},
     comments: {
