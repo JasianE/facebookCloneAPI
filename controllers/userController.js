@@ -66,3 +66,20 @@ exports.findPosts = function(req,res,next){
     }
     console.log('hello')
 }
+exports.like = function(req,res,next){
+    /*
+    Finds User then finds post
+    Adds current user to post likers
+     */
+    User.find({'username': req.body.friend.username}, function(err, user){
+        const user = user[0]
+        //Looks through posts and finds the post that is the same as the post we sent in poopbok
+        const post = user.posts.find((key) => {
+            return key.equals(req.body.post)
+        })
+        const newPosts = [...post.likers, req.body.user._id] 
+        post.likers = newPosts
+        user.posts.splice(user.indexOf(req.body.post), 1, newPosts)
+        console.log(user)
+    })
+}
