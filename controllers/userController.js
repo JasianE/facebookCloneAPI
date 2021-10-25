@@ -73,7 +73,6 @@ exports.like = function(req,res,next){
      */
     User.find({'username': req.body.post.sender}, function(err, userr){
         const user = userr[0]
-        console.log(user.posts)
         //Looks through posts and finds the post that is the same as the post we sent in poopbok
         const post = user.posts.find((key) => {
             return key._id.toString() === req.body.post._id.toString()
@@ -86,6 +85,25 @@ exports.like = function(req,res,next){
                 res.json(err)
             } else {
                 res.json('Good')
+            }
+        })
+    })
+}
+exports.unlike = function(req,res,next){
+    User.find({'username:': req.body.post.sender}, function(err, user2){
+        const user = user2[0]
+        const post = user.posts.find((key) => {
+            return key.id.toString() === req.body.post_id.toString()
+        })
+        const newLikers = post.likers.filter((key) => {
+            return key.toString() !== req.body.user._id
+        })
+        const newPosts = user.posts.splice(user.posts.indexOf(req.body.post), 1, newLikers)
+        user.update({'posts': newPosts}, function(err){
+            if(err){
+                res.json(err)
+            } else{
+                res.json('ok')
             }
         })
     })
