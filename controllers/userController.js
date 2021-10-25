@@ -71,6 +71,7 @@ exports.like = function(req,res,next){
     Finds User then finds post
     Adds current user to post likers
      */
+    console.log(req.body.post)
     User.find({'username': req.body.post.sender}, function(err, userr){
         const user = userr[0]
         //Looks through posts and finds the post that is the same as the post we sent in poopbok
