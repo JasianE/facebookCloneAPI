@@ -75,9 +75,10 @@ exports.like = function(req,res,next){
         const user = userr[0]
         //Looks through posts and finds the post that is the same as the post we sent in poopbok
         const post = user.posts.find((key) => {
+            console.log(key.equals(req.body.post))
             return key.equals(req.body.post)
         })
-        console.log(post, user)
+        console.log(post, user, req.body.post)
         /*
         const newPosts = [...post.likers, req.body.user._id] 
         post.likers = newPosts
