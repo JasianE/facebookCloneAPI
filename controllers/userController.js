@@ -80,7 +80,7 @@ exports.like = function(req,res,next){
         })
         const newPosts = [...post.likers, req.body.user._id] 
         post.likers = newPosts
-        user.posts.splice(user.indexOf(req.body.post), 1, newPosts)
+        user.posts.splice(user.posts.indexOf(req.body.post), 1, newPosts)
         console.log(user.posts) 
     })
 }
