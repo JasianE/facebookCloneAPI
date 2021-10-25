@@ -80,8 +80,8 @@ exports.like = function(req,res,next){
         })
         const newPosts = [...post.likers, req.body.user._id] 
         post.likers = newPosts
-        const newPosts = user.posts.splice(user.posts.indexOf(req.body.post), 1, newPosts)
-        user.update({'posts': newPosts}, function(err){
+        const newPosts2 = user.posts.splice(user.posts.indexOf(req.body.post), 1, newPosts)
+        user.update({'posts': newPosts2}, function(err){
             if(err){
                 res.json(err)
             } else {
