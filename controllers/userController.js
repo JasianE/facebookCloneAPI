@@ -93,8 +93,10 @@ exports.unlike = function(req,res,next){
     User.find({'username:': req.body.post.sender}, function(err, user2){
         const user = user2[0]
         const post = user.posts.find((key) => {
-            return key._id.toString() === req.body.post_id.toString()
+            console.log(key._id)
+            //return key._id.toString() === req.body.post_id.toString()
         })
+        /*
         const newLikers = post.likers.filter((key) => {
             return key.toString() !== req.body.user._id
         })
@@ -106,5 +108,6 @@ exports.unlike = function(req,res,next){
                 res.json('ok')
             }
         })
+        */
     })
 }
