@@ -96,8 +96,9 @@ exports.unlike = function(req,res,next){
         console.log(req.body.post)
         const post = user.posts.find((key) => {
             console.log(key._id)
-            //return key._id.toString() === req.body.post_id.toString()
+            return key._id.toString() === req.body.post_id.toString()
         })
+        console.log(post)
         /*
         const newLikers = post.likers.filter((key) => {
             return key.toString() !== req.body.user._id
