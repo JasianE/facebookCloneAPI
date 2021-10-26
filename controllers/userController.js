@@ -95,6 +95,7 @@ exports.unlike = function(req,res,next){
         const user = user2[0]
         console.log(req.body.post)
         const post = user.posts.find((key) => {
+            console.log(key._id, req.body.post._id)
             return key._id.toString() === req.body.post._id.toString()
         })
         console.log(post)
