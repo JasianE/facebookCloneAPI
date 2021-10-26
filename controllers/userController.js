@@ -91,8 +91,8 @@ exports.like = function(req,res,next){
     })
 }
 exports.unlike = function(req,res,next){
+    console.log(req.body.post.sender)
     User.find({'username:': req.body.post.sender}, function(err, user2){
-        console.log(user2)
         const user = user2[0]
         console.log(req.body.post)
         
