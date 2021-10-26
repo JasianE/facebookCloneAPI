@@ -93,7 +93,7 @@ exports.like = function(req,res,next){
 exports.unlike = function(req,res,next){
     console.log(req.body.post.sender)
     User.find({'username:': req.body.post.sender}, function(err, user2){
-        const user = user2[0]
+        const user = user2.find((key) => {return key.username === req.body.post.sender})
         console.log(req.body.post)
         
         const post = user.posts.map((key) => {
