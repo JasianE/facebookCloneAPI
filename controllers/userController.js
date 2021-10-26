@@ -103,8 +103,8 @@ exports.unlike = function(req,res,next){
         const newLikers = post.likers.filter((key) => {
             return key.toString() !== req.body.user._id
         })
-        console.log(newLikers)
-        const newPosts = user.posts.splice(user.posts.indexOf(req.body.post), 1, newLikers)
+        post.likers = newLikers
+        const newPosts = user.posts.splice(user.posts.indexOf(req.body.post), 1, post)
         user.update({'posts': newPosts}, function(err){
             if(err){
                 res.json(err)
