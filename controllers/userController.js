@@ -94,7 +94,6 @@ exports.unlike = function(req,res,next){
     console.log(req.body.post.sender)
     User.find({'username:': req.body.post.sender}, function(err, user2){
         const user = user2.find((key) => {return key.username === req.body.post.sender})
-        
         const post = user.posts.find((key) => {
             return key._id.toString() === req.body.post._id.toString()
         })
@@ -109,6 +108,23 @@ exports.unlike = function(req,res,next){
             if(err){
                 res.json(err)
             } else{
+                res.json('ok')
+            }
+        })
+        
+    })
+}
+exports.writeComment = function(req,res,next){
+    User.find({'username': req.body.post.sender}, function(err, user2){
+        const user = user2.find((key) => {return key.username === req.body.post.sender})
+        const post = user.posts.find((key) => {
+            return key._id.toString() === req.body.post._id.toString()
+        })
+        const newComments = [...post.comments, req.body.comment]
+        user.update({'comments': newComments}, function(err){
+            if(err){
+                res.json(err)
+            } else {
                 res.json('ok')
             }
         })
