@@ -138,7 +138,7 @@ exports.findEveryone = function(req,res,next){
         if(err){
             res.json(err)
         } else {
-            res.json(uers)
+            res.json(users)
         }
     })
 }
