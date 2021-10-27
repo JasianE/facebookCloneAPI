@@ -52,21 +52,18 @@ exports.findPosts = function(req,res,next){
     const friends = req.params.friends.split(',')
     const og = JSON.parse(req.params.user)
     let posts = [...og]
-    if(friend){
-        for(let i = 0; i < friends.length; i++){
-            if(i === friends.length - 1){
-                User.find({'_id': friends[i]}, function(err, user){
-                    posts = [...posts, ...user[0].posts]
-                    res.json(posts)
-                })
-            } else {
-                User.find({'_id': friends[i]}, function(err, user){
-                    posts = [...posts, ...user[0].posts]
-                })
-            }
+    
+    for(let i = 0; i < friends.length; i++){
+        if(i === friends.length - 1){
+            User.find({'_id': friends[i]}, function(err, user){
+                posts = [...posts, ...user[0].posts]
+                res.json(posts)
+            })
+        } else {
+            User.find({'_id': friends[i]}, function(err, user){
+                posts = [...posts, ...user[0].posts]
+            })
         }
-    } else {
-        res.json(og)
     }
     console.log('hello')
 }
