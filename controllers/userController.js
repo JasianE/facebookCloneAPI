@@ -121,7 +121,7 @@ exports.writeComment = function(req,res,next){
             return key._id.toString() === req.body.post._id.toString()
         })
         console.log(req.body.comment)
-        post.comments.push(req.body.comment)
+        post.comments.push('hello')
         console.log(post.comments)
         const newPosts = user.posts.splice(user.posts.indexOf(req.body.post), 1, post)
         user.update({'posts': newPosts}, function(err){
