@@ -25,6 +25,7 @@ const UserSchema = new Schema({
     lastname: {type: String, required: true},
     friends: [],
     password: {type: String, required: true},
+    photo: {type: String},
     requests: {
         type: [ RequestSchema ],
         default: []
