@@ -61,6 +61,7 @@ router.post('/write', userController.write)
 router.get('/:friends/:user/findPosts', userController.findPosts)
 router.post('/like', userController.like)
 router.post('/unlike', userController.unlike)
+router.post('/writeComment', userController.writeComment)
 router.get('/test', function(req,res){
   res.json('Hello')
   /*User.find({'username': 'hello'}, function(err, doc){
