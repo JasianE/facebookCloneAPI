@@ -25,10 +25,10 @@ exports.login = function(req,res,next){
           bcrypt.compare(req.params.password, doc[0].password, (err, rest) => {
             if(rest){
                 const info = {
-                    token: jwt.sign(doc[0], 'esam'),
+                    token: jwt.sign(doc[0], 'esam', {expiresIn: 3600}),
                     user: doc[0]
                 }
-                res.json(JSON.stringify(info))
+                res.json(doc[0])
             } else {
                 res.json('Wrong Information')
             }
