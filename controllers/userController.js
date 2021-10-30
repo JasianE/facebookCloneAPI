@@ -27,7 +27,8 @@ exports.login = function(req,res,next){
                 const info = {
                     user: doc[0]
                 }
-                const token = jwt.sign(doc[0], 'esam', {expiresIn: 3600})
+                //const token = jwt.sign(doc[0], 'esam', {expiresIn: 3600})
+                console.log(doc[0])
                 console.log(token)
                 res.json(doc[0])
             } else {
