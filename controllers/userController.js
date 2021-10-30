@@ -1,4 +1,7 @@
 const User = require('../models/User')
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+
 //Finds User, returns user
 //Once displayed controller can send friend request 
 //Request uses home's current user and sends it to the requested friend user from state (stores new user in a state box that resets once the user leaves pages)
@@ -13,12 +16,59 @@ exports.find = function(req,res,next){
         }
     })
 }
+exports.login = function(req,res,next){
+    User.find({username: req.params.username}, function(err, doc){
+      if(err || doc.length === 0){
+        console.log('Here!!!')
+        res.json('No user')
+      } else {
+          bcrypt.compare(req.params.password, doc[0].password, (err, rest) => {
+            if(rest){
+                const info = {
+                    token: jwt.sign(doc[0], 'esam'),
+                    user: doc[0]
+                }
+                res.json(info)
+            } else {
+                res.json('Wrong Information')
+            }
+          })
+        }
+    })
+}
 exports.stupid = function(req,res,next){
     console.log(req.params)
     User.find({"_id": req.params.id}, function(err, user){
         res.json(user[0])
     })
 }
+exports.signup = function(req,res,next){
+    User.find({username: req.body.username}, function(err, doc){
+      if(doc.length > 0){
+        return('Username Is Used')
+      } else {
+          bcrypt.hash(req.body.password, 10, (err, hashed) => {
+            if(err){
+              res.json('failed')
+            }
+            const user = new User({
+              username: req.body.username,
+              firstname: req.body.firstname,
+              email: req.body.email,
+              lastname: req.body.lastname,
+              password: hashed,
+            }).save(function(err){
+              if(err){
+                console.log(err)
+                res.json('Bad Req')
+                return next(err)
+              }
+              res.json('Good')
+            })
+          })
+      }
+    })
+  }
 exports.write = function(req,res,next){
     /* Stores it in users comments
     Stores Text

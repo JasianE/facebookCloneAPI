@@ -6,8 +6,8 @@ var logger = require('morgan');
 const dotenv = require('dotenv').config()
 const session = require('express-session')
 const mongoose = require('mongoose')
-const Schema = mongoose.Schema
 const cors = require('cors')
+const passport = require('passport')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -24,7 +24,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(session({secret: 'esam', resave: false, saveUninitialized: true}))
-
+app.use(passport.initialize())
+app.use(passport.session())
 app.use(cors())
 app.use(logger('dev'));
 app.use(express.json());
