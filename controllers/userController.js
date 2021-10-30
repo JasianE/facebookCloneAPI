@@ -28,7 +28,7 @@ exports.login = function(req,res,next){
                     token: jwt.sign(doc[0], 'esam'),
                     user: doc[0]
                 }
-                res.json(info)
+                res.json(JSON.stringify(info))
             } else {
                 res.json('Wrong Information')
             }
