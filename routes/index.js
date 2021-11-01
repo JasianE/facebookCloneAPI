@@ -3,7 +3,19 @@ var router = express.Router();
 const User = require('../models/User')
 const friendController = require('../controllers/friendController')
 const userController = require('../controllers/userController')
-import verifyToken from '../verifyToken'
+
+function verifyToken(req,res,next){
+  const bearer = req.headers['authorization']
+
+  if(typeof bearer === 'undefined'){
+      res.sendStatus(403)
+  } else{
+      const token = bearer.split(' ')[1]
+      req.token = token
+      next()
+  }
+}
+
 
 /* User Actions */
 
