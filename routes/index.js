@@ -15,11 +15,11 @@ router.get('/:friends/:user/findPosts', userController.findPosts)
 router.get('/everyone', userController.findEveryone)
 
 //Post requests
-router.post('/sign-up', verifyToken, userController.signup )
+router.post('/sign-up', userController.signup )
 router.post('/write', userController.write)
 router.post('/like', userController.like)
 router.post('/unlike', userController.unlike)
-router.post('/writeComment', userController.writeComment)
+router.post('/writeComment', verifyToken, userController.writeComment)
 
 router.get('/', function(req, res, next) {
   res.json('Hi3')
