@@ -87,6 +87,7 @@ exports.write = function(req,res,next){
     */
    jwt.verify(req.token, 'esam', (err, authData) => {
        if(err){
+           console.log(req.token)
            res.sendStatus(403)
        } else {
             User.find({username: req.body.user.username}, function(err, user){
