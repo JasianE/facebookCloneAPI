@@ -85,20 +85,25 @@ exports.write = function(req,res,next){
     Sort chronilogiclaylasdsfal and yeah
     Ok it hink this is a good way to do ti
     */
-   User.find({username: req.body.user.username}, function(err, user){
-       const post = {
-           sender: req.body.user.username,
-           post: req.body.post
+   jwt.verify(req.token, 'esam', (err, authData) => {
+       if(err){
+           res.sendStatus(403)
+       } else {
+            User.find({username: req.body.user.username}, function(err, user){
+                const post = {
+                    sender: req.body.user.username,
+                    post: req.body.post
+                }
+                const newPosts = [...user[0].posts, post]
+                user[0].update({'posts': newPosts}, function(err){
+                    if(err){
+                        res.json(err)
+                    } else{
+                        res.json(':)')
+                    }
+                })
+            })
        }
-       const newPosts = [...user[0].posts, post]
-       console.log(newPosts)
-       user[0].update({'posts': newPosts}, function(err){
-           if(err){
-               res.json(err)
-           } else{
-               res.json(':)')
-           }
-       })
    })
 }
 exports.findPosts = function(req,res,next){
