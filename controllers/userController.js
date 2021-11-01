@@ -136,65 +136,73 @@ exports.like = function(req,res,next){
     Finds User then finds post
     Adds current user to post likers
      */
-    console.log(req.body.post)
-    User.find({'username': req.body.post.sender}, function(err, userr){
-        const user = userr[0]
-        //Looks through posts and finds the post that is the same as the post we sent in poopbok
-        const post = user.posts.find((key) => {
-            return key._id.toString() === req.body.post._id.toString()
-        })
-        const newPosts = [...post.likers, req.body.user._id] 
-        post.likers = newPosts
-        const newPosts2 = user.posts.splice(user.posts.indexOf(req.body.post), 1, newPosts)
-        user.update({'posts': newPosts2}, function(err){
-            if(err){
-                res.json(err)
-            } else {
-                res.json('Good')
-            }
-        })
+    jwt.verify(req.token, 'esam', (err, authData) => {
+        if(err){
+            res.sendStatus(403)
+        } else {
+            User.find({'username': req.body.post.sender}, function(err, userr){
+                const user = userr[0]
+                //Looks through posts and finds the post that is the same as the post we sent in poopbok
+                const post = user.posts.find((key) => {
+                    return key._id.toString() === req.body.post._id.toString()
+                })
+                const newPosts = [...post.likers, req.body.user._id] 
+                post.likers = newPosts
+                const newPosts2 = user.posts.splice(user.posts.indexOf(req.body.post), 1, newPosts)
+                user.update({'posts': newPosts2}, function(err){
+                    if(err){
+                        res.json(err)
+                    } else {
+                        res.json('Good')
+                    }
+                })
+            })
+        }
     })
 }
 exports.unlike = function(req,res,next){
-    console.log(req.body.post.sender)
-    User.find({'username:': req.body.post.sender}, function(err, user2){
-        const user = user2.find((key) => {return key.username === req.body.post.sender})
-        const post = user.posts.find((key) => {
-            return key._id.toString() === req.body.post._id.toString()
+    jwt.verify(req.token, 'esam', (err, authData) => {
+        User.find({'username:': req.body.post.sender}, function(err, user2){
+            const user = user2.find((key) => {return key.username === req.body.post.sender})
+            const post = user.posts.find((key) => {
+                return key._id.toString() === req.body.post._id.toString()
+            })
+            console.log(post)
+            
+            const newLikers = post.likers.filter((key) => {
+                return key.toString() !== req.body.user._id
+            })
+            post.likers = newLikers
+            const newPosts = user.posts.splice(user.posts.indexOf(req.body.post), 1, post)
+            user.update({'posts': newPosts}, function(err){
+                if(err){
+                    res.json(err)
+                } else{
+                    res.json('ok')
+                }
+            })
+            
         })
-        console.log(post)
-        
-        const newLikers = post.likers.filter((key) => {
-            return key.toString() !== req.body.user._id
-        })
-        post.likers = newLikers
-        const newPosts = user.posts.splice(user.posts.indexOf(req.body.post), 1, post)
-        user.update({'posts': newPosts}, function(err){
-            if(err){
-                res.json(err)
-            } else{
-                res.json('ok')
-            }
-        })
-        
     })
 }
 exports.writeComment = function(req,res,next){
-    User.find({'username': req.body.post.sender}, function(err, user2){
-        const user = user2.find((key) => {return key.username === req.body.post.sender})
-        const post = user.posts.find((key) => {
-            return key._id.toString() === req.body.post._id.toString()
+    jwt.verify(req.token, 'esam', (err, authData) => {
+        User.find({'username': req.body.post.sender}, function(err, user2){
+            const user = user2.find((key) => {return key.username === req.body.post.sender})
+            const post = user.posts.find((key) => {
+                return key._id.toString() === req.body.post._id.toString()
+            })
+            post.comments.push({sender: req.body.user, message: req.body.comment})
+            const newPosts = user.posts.splice(user.posts.indexOf(req.body.post), 1, post)
+            user.update({'posts': newPosts}, function(err){
+                if(err){
+                    res.json(err)
+                } else {
+                    res.json('ok')
+                }
+            })
+            
         })
-        post.comments.push({sender: req.body.user, message: req.body.comment})
-        const newPosts = user.posts.splice(user.posts.indexOf(req.body.post), 1, post)
-        user.update({'posts': newPosts}, function(err){
-            if(err){
-                res.json(err)
-            } else {
-                res.json('ok')
-            }
-        })
-        
     })
 }
 exports.findEveryone = function(req,res,next){

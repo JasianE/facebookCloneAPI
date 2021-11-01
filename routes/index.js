@@ -28,9 +28,9 @@ router.get('/everyone', userController.findEveryone)
 
 //Post requests
 router.post('/sign-up', userController.signup )
-router.post('/write', userController.write)
-router.post('/like', userController.like)
-router.post('/unlike', userController.unlike)
+router.post('/write', verifyToken, userController.write)
+router.post('/like', verifyToken, userController.like)
+router.post('/unlike', verifyToken, userController.unlike)
 router.post('/writeComment', verifyToken, userController.writeComment)
 
 router.get('/', function(req, res, next) {
