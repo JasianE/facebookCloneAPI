@@ -7,11 +7,12 @@ const jwt = require('jsonwebtoken')
 
 function verifyToken(req,res,next){
   const bearer = req.headers.authorization
+  console.log(bearer)
 
   if(typeof bearer === 'undefined'){
       res.sendStatus(403)
   } else{
-      const token = bearer.split(' ')[1]
+      const token = bearer.split(' ')[0]
       console.log(token)
       req.token = token
       next()
