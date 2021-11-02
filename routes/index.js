@@ -7,6 +7,8 @@ const userController = require('../controllers/userController')
 function verifyToken(req,res,next){
   const bearer = req.headers['authorization']
 
+  console.log(req.headers)
+
   if(typeof bearer === 'undefined'){
       res.sendStatus(403)
   } else{
