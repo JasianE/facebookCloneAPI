@@ -165,29 +165,32 @@ exports.like = function(req,res,next){
 exports.unlike = function(req,res,next){
     jwt.verify(req.token, 'esam', (err, authData) => {
         if(err){
-            console.log(err)
+            console.log(req.body)
+            res.sendStatus(403)
         }
-        User.find({'username:': req.body.post.sender}, function(err2, user2){
-            const user = user2.find((key) => {return key.username === req.body.post.sender})
-            const post = user.posts.find((key) => {
-                return key._id.toString() === req.body.post._id.toString()
+        else{
+            User.find({'username:': req.body.post.sender}, function(err2, user2){
+                const user = user2.find((key) => {return key.username === req.body.post.sender})
+                const post = user.posts.find((key) => {
+                    return key._id.toString() === req.body.post._id.toString()
+                })
+                console.log('poo')
+                
+                const newLikers = post.likers.filter((key) => {
+                    return key.toString() !== req.body.user._id
+                })
+                post.likers = newLikers
+                const newPosts = user.posts.splice(user.posts.indexOf(req.body.post), 1, post)
+                user.update({'posts': newPosts}, function(err){
+                    if(err2){
+                        res.json(err2)
+                    } else{
+                        res.json('ok')
+                    }
+                })
+                
             })
-            console.log('poo')
-            
-            const newLikers = post.likers.filter((key) => {
-                return key.toString() !== req.body.user._id
-            })
-            post.likers = newLikers
-            const newPosts = user.posts.splice(user.posts.indexOf(req.body.post), 1, post)
-            user.update({'posts': newPosts}, function(err){
-                if(err2){
-                    res.json(err2)
-                } else{
-                    res.json('ok')
-                }
-            })
-            
-        })
+        }
     })
 }
 exports.writeComment = function(req,res,next){
