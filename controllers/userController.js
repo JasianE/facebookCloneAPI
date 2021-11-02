@@ -164,6 +164,9 @@ exports.like = function(req,res,next){
 }
 exports.unlike = function(req,res,next){
     jwt.verify(req.token, 'esam', (err, authData) => {
+        if(err){
+            console.log(err)
+        }
         User.find({'username:': req.body.post.sender}, function(err, user2){
             const user = user2.find((key) => {return key.username === req.body.post.sender})
             const post = user.posts.find((key) => {
