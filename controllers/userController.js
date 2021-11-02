@@ -165,7 +165,6 @@ exports.like = function(req,res,next){
 exports.unlike = function(req,res,next){
     jwt.verify(req.token, 'esam', (err, authData) => {
         if(err){
-            console.log(req.body)
             res.sendStatus(403)
         }
         else{
@@ -194,24 +193,27 @@ exports.unlike = function(req,res,next){
     })
 }
 exports.writeComment = function(req,res,next){
-    console.log(req.token)
     jwt.verify(req.token, 'esam', (err, authData) => {
-        User.find({'username': req.body.post.sender}, function(err, user2){
-            const user = user2.find((key) => {return key.username === req.body.post.sender})
-            const post = user.posts.find((key) => {
-                return key._id.toString() === req.body.post._id.toString()
+        if(err){
+            res.sendStatus(403)
+        } else{
+            User.find({'username': req.body.post.sender}, function(err, user2){
+                const user = user2.find((key) => {return key.username === req.body.post.sender})
+                const post = user.posts.find((key) => {
+                    return key._id.toString() === req.body.post._id.toString()
+                })
+                post.comments.push({sender: req.body.user, message: req.body.comment})
+                const newPosts = user.posts.splice(user.posts.indexOf(req.body.post), 1, post)
+                user.update({'posts': newPosts}, function(err){
+                    if(err){
+                        res.json(err)
+                    } else {
+                        res.json('ok')
+                    }
+                })
+                
             })
-            post.comments.push({sender: req.body.user, message: req.body.comment})
-            const newPosts = user.posts.splice(user.posts.indexOf(req.body.post), 1, post)
-            user.update({'posts': newPosts}, function(err){
-                if(err){
-                    res.json(err)
-                } else {
-                    res.json('ok')
-                }
-            })
-            
-        })
+        }
     })
 }
 exports.findEveryone = function(req,res,next){
