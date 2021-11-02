@@ -167,7 +167,7 @@ exports.unlike = function(req,res,next){
         if(err){
             console.log(err)
         }
-        User.find({'username:': req.body.post.sender}, function(err, user2){
+        User.find({'username:': req.body.post.sender}, function(err2, user2){
             const user = user2.find((key) => {return key.username === req.body.post.sender})
             const post = user.posts.find((key) => {
                 return key._id.toString() === req.body.post._id.toString()
@@ -180,8 +180,8 @@ exports.unlike = function(req,res,next){
             post.likers = newLikers
             const newPosts = user.posts.splice(user.posts.indexOf(req.body.post), 1, post)
             user.update({'posts': newPosts}, function(err){
-                if(err){
-                    res.json(err)
+                if(err2){
+                    res.json(err2)
                 } else{
                     res.json('ok')
                 }
