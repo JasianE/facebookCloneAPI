@@ -85,6 +85,7 @@ exports.write = function(req,res,next){
     Sort chronilogiclaylasdsfal and yeah
     Ok it hink this is a good way to do ti
     */
+   console.log(req.token)
    jwt.verify(req.token, 'esam', (err, authData) => {
        if(err){
            console.log(req.token)
@@ -162,7 +163,6 @@ exports.like = function(req,res,next){
     })
 }
 exports.unlike = function(req,res,next){
-    console.log(req)
     jwt.verify(req.token, 'esam', (err, authData) => {
         User.find({'username:': req.body.post.sender}, function(err, user2){
             const user = user2.find((key) => {return key.username === req.body.post.sender})
