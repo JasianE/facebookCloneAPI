@@ -5,8 +5,8 @@ const friendController = require('../controllers/friendController')
 const userController = require('../controllers/userController')
 
 function verifyToken(req,res,next){
-  const bearer = req.headers['authorization']
-
+  const bearer = req.headers.authorization
+  console.log(bearer)
   console.log(req.headers)
 
   if(typeof bearer === 'undefined'){
