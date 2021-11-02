@@ -13,7 +13,7 @@ function verifyToken(req,res,next){
   } else{
       const token = bearer.split(' ')[1]
       const result = bearer.split(' ')
-      req.token = result[0]
+      req.token = result[1]
       next()
   }
 }
