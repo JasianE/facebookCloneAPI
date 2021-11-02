@@ -162,6 +162,7 @@ exports.like = function(req,res,next){
     })
 }
 exports.unlike = function(req,res,next){
+    console.log(req)
     jwt.verify(req.token, 'esam', (err, authData) => {
         User.find({'username:': req.body.post.sender}, function(err, user2){
             const user = user2.find((key) => {return key.username === req.body.post.sender})
@@ -187,6 +188,7 @@ exports.unlike = function(req,res,next){
     })
 }
 exports.writeComment = function(req,res,next){
+    console.log(req.token)
     jwt.verify(req.token, 'esam', (err, authData) => {
         User.find({'username': req.body.post.sender}, function(err, user2){
             const user = user2.find((key) => {return key.username === req.body.post.sender})
