@@ -3,13 +3,22 @@ var router = express.Router();
 const User = require('../models/User')
 const friendController = require('../controllers/friendController')
 const userController = require('../controllers/userController')
+const jwt = require('jsonwebtoken')
 
 function verifyToken(req,res,next){
   const bearer = req.headers.authorization
-  console.log(bearer)
+
   if(typeof bearer === 'undefined'){
       res.sendStatus(403)
-  } 
+  } else{
+      const token = bearer.split(' ')[1]
+      req.token = token
+      jwt.verify(req.token, 'esam', (err, authData) => {
+        console.log(err)
+        consle.log(authData)
+      })
+      next()
+  }
 }
 
 
