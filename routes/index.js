@@ -12,7 +12,8 @@ function verifyToken(req,res,next){
       res.sendStatus(403)
   } else{
       const token = bearer.split(' ')[1]
-      console.log(bearer)
+      const result = bearer.split(' ')
+      console.log(result)
       next()
   }
 }
