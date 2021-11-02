@@ -13,7 +13,7 @@ function verifyToken(req,res,next){
   } else{
       const token = bearer.split(' ')[1]
       req.token = token
-      jwt.verify(req.token, 'esam', (err, authData) => {
+      jwt.verify(token, 'esam', (err, authData) => {
         console.log(err)
         consle.log(authData)
       })
