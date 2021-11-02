@@ -11,12 +11,9 @@ function verifyToken(req,res,next){
   if(typeof bearer === 'undefined'){
       res.sendStatus(403)
   } else{
-      const token = bearer.split(' ')[0]
+      const token = bearer.split(' ')[1]
+      console.log(token)
       req.token = token
-      jwt.verify(token, 'esam', (err, authData) => {
-        console.log(err)
-        consle.log(authData)
-      })
       next()
   }
 }
