@@ -6,17 +6,10 @@ const userController = require('../controllers/userController')
 
 function verifyToken(req,res,next){
   const bearer = req.headers.authorization
-
+  console.log(bearer)
   if(typeof bearer === 'undefined'){
-      console.log(bearer)
       res.sendStatus(403)
-  } else{
-      const token = bearer.split(' ')[1]
-      const result = bearer.split(' ')
-      console.log(result[1])
-      req.token = result[1]
-      next()
-  }
+  } 
 }
 
 
