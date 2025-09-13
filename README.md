@@ -20,8 +20,5 @@ server/
 ├── controllers/       # Handles request logic for users, posts, comments, likes
 ├── models/            # Mongoose schemas for User, Post, Comment, Like
 ├── routes/            # API routes organized by feature
-├── middleware/        # Auth middleware, error handling
-├── config/            # Database and environment configuration
-├── utils/             # Helper functions
 ├── server.js          # Express server entry point
 └── package.json
